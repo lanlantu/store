@@ -50,4 +50,16 @@ public class UserController extends BaseController{
     }
 
 
+    @RequestMapping("get_by_uid")
+    public JsonResult<User> getByUid(HttpSession session){
+        User data = userService.getByUid(getUidFromSession(session));
+        return new JsonResult<User>(OK,data);
+    }
+
+    @RequestMapping("change_info")
+    public  JsonResult<Void> changeInfo(User user,
+                                        HttpSession session){
+        userService.changeInfo(getUidFromSession(session),getUsernameFromSession(session),user);
+        return new JsonResult<Void>(OK);
+    }
 }

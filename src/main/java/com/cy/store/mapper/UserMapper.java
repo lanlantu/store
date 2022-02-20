@@ -12,6 +12,7 @@ public interface UserMapper {
 
     Integer updatePasswordByUid(Integer uid, String password, String modifiedUser, Date modifiedTime);
 
-
     User findByUid(Integer uid);
+
+    Integer updateInfoByUid(User user);
 }
