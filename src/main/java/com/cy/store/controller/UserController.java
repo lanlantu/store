@@ -99,14 +99,12 @@ public class UserController extends BaseController{
         }
 
         String contentType = file.getContentType();
-        System.out.println(contentType);
         if (!AVATAR_TYPES.contains(contentType)) {
             throw new FileTypeException("不支持使用该类型的文件作为头像，允许的文件类型：" + AVATAR_TYPES);
         }
 
         // 获取当前项目的绝对磁盘路径
         String parent = session.getServletContext().getRealPath("upload");
-        System.out.println(parent+"===============");
         File dir = new File(parent);
         if (!dir.exists()) {
             dir.mkdirs();

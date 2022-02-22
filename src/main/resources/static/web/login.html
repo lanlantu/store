@@ -153,7 +153,11 @@
 				dataType: "JSON",
 				success: function (json){
 					if (json.state==200){
+						//将服务器中返回的头像保存再cookie中
+						$.cookie("avatar",json.data.avatar,{expires:1})
+						console.log(json)
 						location.href ="index.html";
+
 					}else {
 						alert("登陆失败=="+json.message);
 					}
