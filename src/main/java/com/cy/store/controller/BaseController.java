@@ -46,6 +46,8 @@ public class BaseController {
             result.setState(4004);
         } else if (e instanceof AccessDeniedException) {
             result.setState(4005);
+        } else if (e instanceof ProductNotFoundException) {
+            result.setState(4006);
         } else if (e instanceof InsertException) {
             result.setState(5000);
         } else if (e instanceof UpdateException) {
