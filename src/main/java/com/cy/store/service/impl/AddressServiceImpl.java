@@ -59,7 +59,6 @@ public class AddressServiceImpl implements IAddressService {
     @Override
     public List<Address> getByUid(Integer uid) {
         List<Address> list = addressMapper.findByUid(uid);
-        /*
         for (Address address : list) {
             address.setUid(null);
             address.setProvinceCode(null);
@@ -69,24 +68,20 @@ public class AddressServiceImpl implements IAddressService {
             address.setCreatedTime(null);
             address.setModifiedUser(null);
             address.setModifiedTime(null);
-        }*/
+        }
         return list;
     }
 
     @Transactional
     @Override
     public void setDefault(Integer aid, Integer uid, String username) {
-        // 根据参数aid，调用addressMapper中的findByAid()查询收货地址数据
         Address result = addressMapper.findByAid(aid);
-        // 判断查询结果是否为null
         if (result == null) {
-            // 是：抛出AddressNotFoundException
             throw new AddressNotFoundException("尝试访问的收货地址数据不存在");
         }
 
         // 判断查询结果中的uid与参数uid是否不一致(使用equals()判断)
         if (!result.getUid().equals(uid)) {
-            // 是：抛出AccessDeniedException
             throw new AccessDeniedException("非法访问的异常");
         }
 
@@ -94,15 +89,12 @@ public class AddressServiceImpl implements IAddressService {
         Integer rows = addressMapper.updateNonDefaultByUid(uid);
         // 判断受影响的行数是否小于1(不大于0)
         if (rows < 1) {
-            // 是：抛出UpdateException
             throw new UpdateException("设置默认收货地址时出现未知错误[1]");
         }
 
         // 调用addressMapper的updateDefaultByAid()将指定aid的收货地址设置为默认，并获取返回的受影响的行数
         rows = addressMapper.updateDefaultByAid(aid, username, new Date());
-        // 判断受影响的行数是否不为1
         if (rows != 1) {
-            // 是：抛出UpdateException
             throw new UpdateException("设置默认收货地址时出现未知错误[2]");
         }
     }
@@ -110,27 +102,19 @@ public class AddressServiceImpl implements IAddressService {
     @Transactional
     @Override
     public void delete(Integer aid, Integer uid, String username) {
-        // 根据参数aid，调用findByAid()查询收货地址数据
         Address result = addressMapper.findByAid(aid);
-        // 判断查询结果是否为null
         if (result == null) {
-            // 是：抛出AddressNotFoundException
             throw new AddressNotFoundException("尝试访问的收货地址数据不存在");
         }
-
-        // 判断查询结果中的uid与参数uid是否不一致(使用equals()判断)
+        // 判断查询结果中的uid与 参数uid是否不一致(使用equals()判断)
         if (!result.getUid().equals(uid)) {
-            // 是：抛出AccessDeniedException：非法访问
             throw new AccessDeniedException("非常访问");
         }
 
-        // 根据参数aid，调用deleteByAid()执行删除
         Integer rows1 = addressMapper.deleteByAid(aid);
         if (rows1 != 1) {
-          //  throw new DeleteException("删除收货地址数据时出现未知错误，请联系系统管理员");
+            throw new DeleteException("删除数据产生未知异常");
         }
-
-        // 判断查询结果中的isDefault是否为0
         if (result.getIsDefault() == 0) {
             return;
         }

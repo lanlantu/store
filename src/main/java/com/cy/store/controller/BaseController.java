@@ -50,6 +50,8 @@ public class BaseController {
             result.setState(5000);
         } else if (e instanceof UpdateException) {
             result.setState(5001);
+        } else if (e instanceof DeleteException) {
+            result.setState(5002);
         } else if (e instanceof FileEmptyException) {
             result.setState(6000);
         } else if (e instanceof FileSizeException) {

@@ -395,6 +395,7 @@
 					success: function(json) {
 						if (json.state == 200) {
 							alert("新增收货地址成功！");
+							location.reload();
 						} else {
 							alert("新增收货地址失败！" + json.message);
 						}

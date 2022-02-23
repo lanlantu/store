@@ -33,7 +33,7 @@ public class AddressController extends BaseController {
         return new JsonResult<List<Address>>(OK, data);
     }
 
-    @RequestMapping("{aid}/set_default")
+    @RequestMapping("{aid}/set_default")//restFul风格
     public JsonResult<Void> setDefault(@PathVariable("aid") Integer aid, HttpSession session) {
         Integer uid = getUidFromSession(session);
         String username = getUsernameFromSession(session);
