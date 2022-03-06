@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 注册处理器拦截器
  */
-@Configuration
+//@Configuration
 public class LoginInterceptorConfigurer implements WebMvcConfigurer {
     /**
      * 拦截器配置

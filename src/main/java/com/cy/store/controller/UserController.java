@@ -37,6 +37,12 @@ public class UserController extends BaseController{
         return new JsonResult<Void>(OK);
     }
 
+    @RequestMapping("index")
+    public JsonResult<Void> index(User user) {
+        // 调用业务对象执行注册
+
+        return new JsonResult<Void>(OK);
+    }
 
     @RequestMapping("login")
     public JsonResult<User> login(String username,
